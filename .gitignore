@@ -3,3 +3,5 @@
 .vscode/
 *.log
 adk-python
+*.pyc
+.pytest_cache/

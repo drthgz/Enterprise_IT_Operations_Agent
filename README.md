@@ -34,6 +34,15 @@ We will blend public datasets with controllable synthetic generators to give the
 - **Support communications:** Kaggle dataset `aslanahmedov/tech-support-ticket-classification` → customer/stakeholder ticket text that feeds the incident triage agent.
 - **Synthetic augmentation:** Deterministic generators expand coverage for rare events (database fails, migration windows, vendor outage emails) and allow stress-testing Level 4 behaviors.
 
+## Agent Tooling
+The supervisor and specialists share three `FunctionTool` wrappers exposed from `src/it_ops_observability/tools.py`, giving the LLM concrete affordances when reasoning about observability tasks.
+
+- **`fetch_server_logs`** – retrieves recent CloudFront-style log lines for a server and falls back to synthetic bursts when curated parquet files are unavailable.
+- **`summarize_utilization`** – aggregates CPU and memory telemetry, returning averages, peaks, and timestamped samples that downstream prompts can cite.
+- **`fetch_incident_digest`** – surfaces the latest support ticket or synthesizes a SEV2 incident email so remediation plans always include stakeholder context.
+
+These tools automatically load real datasets when present and revert to deterministic generators otherwise, keeping evaluation runs reproducible across local, Kaggle, and cloud environments.
+
 ## Rubric Coverage Plan
 We track rubric alignment in [`docs/rubric_mapping.md`](docs/rubric_mapping.md), mapping every required feature (multi-agent, tools, memory, observability, deployment, documentation, bonus points) to concrete deliverables and current status.
 
