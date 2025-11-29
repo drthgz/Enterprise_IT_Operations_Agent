@@ -9,3 +9,5 @@
 2025-11-28 Compiled cost estimate and bill of materials (docs/cost_estimate.md), referenced from README deployment section.
 2025-11-28 Documented deployment strategy (docs/deployment_strategy.md), updated architecture overview, and marked checklist item complete.
 2025-11-28 Added documentation plan (docs/documentation_plan.md) and marked README checklist item complete.
+2025-11-28 Implemented data access helpers with synthetic fallbacks (`src/it_ops_observability/data_sources.py`), wrapped them in FunctionTool adapters and smoke-tested (`tests/test_tools.py`), added production agent factory + package exports, documented tooling in README, recorded quick supervisor demo output and embedded transcript in docs.
+2025-11-28 Added CLI scripts for supervisor smoke demo and full ADK InMemoryRunner (`scripts/quick_supervisor_demo.py`, `scripts/run_adk_supervisor.py`); attempted runner execution (requires `GOOGLE_API_KEY`) and documented transcript in evaluation plan.

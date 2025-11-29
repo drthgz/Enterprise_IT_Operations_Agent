@@ -43,6 +43,21 @@ The supervisor and specialists share three `FunctionTool` wrappers exposed from 
 
 These tools automatically load real datasets when present and revert to deterministic generators otherwise, keeping evaluation runs reproducible across local, Kaggle, and cloud environments.
 
+## Local Runner
+Use `scripts/run_adk_supervisor.py` to exercise the production agent tree with Gemini. This mirrors the evaluation workflow and generates transcripts for the Kaggle write-up.
+
+```
+source .venv/bin/activate
+set -a && source .env && set +a  # loads GOOGLE_API_KEY
+PYTHONPATH=src python scripts/run_adk_supervisor.py --verbose \
+    "Give me an ops briefing: what happened overnight, what are the top risks, and what should leadership do next?" \
+    "Investigate prod-app-01 with the default window and summarize key log anomalies." \
+    "Provide the utilization stats and risks." \
+    "Draft the leadership summary and actions."
+```
+
+Use `--quiet` to skip console logs and capture the returned events programmatically.
+
 ## Rubric Coverage Plan
 We track rubric alignment in [`docs/rubric_mapping.md`](docs/rubric_mapping.md), mapping every required feature (multi-agent, tools, memory, observability, deployment, documentation, bonus points) to concrete deliverables and current status.
 
