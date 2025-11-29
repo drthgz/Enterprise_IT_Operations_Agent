@@ -94,5 +94,10 @@ This plan defines how we will measure the Enterprise IT Operations Agent against
 - Store representative responses (with prompt/context) in `reports/evaluation/examples/`.
 - Record evaluation metrics in a summary table for the Kaggle write-up and LinkedIn blog.
 - Current assets: [../assets/screenshots/evaluation_notebook_run.png](../assets/screenshots/evaluation_notebook_run.png) (notebook run), [../assets/screenshots/pytest_pass.png](../assets/screenshots/pytest_pass.png) (pytest summary), [../assets/enterprise_it_ops_architecture.png](../assets/enterprise_it_ops_architecture.png) (architecture diagram).
+- Metrics archive: [../reports/evaluation/examples/metrics_2025-11-29.json](../reports/evaluation/examples/metrics_2025-11-29.json).
+- Latest measurements (2025-11-29):
+   - End-to-end supervisor pytest: 10.68s wall time (`tests/test_runner.py::test_supervisor_runner_outputs_summary`, `--durations=5`).
+   - `scripts/run_adk_supervisor.py --verbose` via `/usr/bin/time`: 10.01s real / 3.49s user / 0.09s sys.
+   - `summarize_utilization(hours=24)`: average CPU 54.83%, peak CPU 78.60%, average memory 62.34%, peak memory 73.51%; latest samples captured for README evidence table.
 
 By following this plan, we ensure the project demonstrates measurable improvements and aligns tightly with the competition rubric.

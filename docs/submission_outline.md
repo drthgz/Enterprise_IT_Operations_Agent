@@ -13,44 +13,48 @@ This outline captures the structure and key talking points for the capstone writ
 - One-sentence justification: Drives faster incident response and leadership reporting for enterprise operation teams.
 
 ## 3. Problem Statement & Value
-- IT operations leads report that every incident still begins with a scavenger hunt across logs, metrics, and emails; on average it takes more than half an hour before a coherent mitigation plan reaches leadership. During that delay, SLA breaches go unreported and customer-impact escalations pile up.
-- Our target outcome is to shrink that insight window to under five minutes while producing an executive-ready briefing automatically, giving stakeholders clear actions without forcing them to parse raw telemetry.
-- Intended audience: general IT leadership and operations teams—keep language accessible, emphasize business outcomes first, then describe how agents make them possible.
-- Supporting doc: [README.md](../README.md) (Problem Statement & Success Metrics), [docs/mission_background.md](mission_background.md).
+Enterprise IT operations leaders still begin every major incident with a scavenger hunt. Logs, metrics, and stakeholder emails live in separate silos, so teams burn half an hour stitching together context before leadership even hears what went wrong. During that delay, SLA breaches accumulate, customers escalate, and planned capacity work falls off the radar.
+
+Our supervisor agent closes that gap. Within a single conversational exchange it delivers a root-cause narrative, calls out the top risks, and proposes next actions that executives can act on immediately. Shrinking the insight window to under five minutes reduces unforced SLA violations, accelerates escalation handling, and frees on-call engineers to focus on mitigation instead of reporting.
+
+Primary audience: operations directors, service owners, and SRE leads who need business-ready briefings instead of raw telemetry. Supporting references: [README.md](../README.md) for success metrics and [docs/mission_background.md](mission_background.md) for the narrative setup.
 
 ## 4. Solution Overview
-- We orchestrate a Gemini-powered supervisor agent that listens to high-level questions and delegates concrete tasks to three specialists focused on logs, metrics, and stakeholder communications. Each agent speaks plain-language briefings so non-ML audiences can follow along.
-- All data access routes through FunctionTool adapters that pull from real datasets when available and fall back to deterministic synthetic samples otherwise, keeping demos reliable.
-- Every supervised run emits a transcript and passes automated tests, supplying auditable evidence that the workflow behaves consistently.
-- Reference: [src/it_ops_observability/agent.py](../src/it_ops_observability/agent.py), [src/it_ops_observability/tools.py](../src/it_ops_observability/tools.py).
+We orchestrate a Gemini-powered supervisor that feels like an incident commander. Executives ask high-level questions (“What happened overnight?” “What should leadership do next?”) and the supervisor routes follow-up work to three specialists focused on logs, metrics, and stakeholder communications. Each specialist reasons over structured tool outputs but responds with concise English summaries so non-ML audiences can follow along.
 
-- The architecture follows the classic command-center pattern: a supervisor agent keeps the conversation with the user while routing investigative steps to specialists that execute tool calls. This separation lets leadership ask for “top risks” in plain English while the system quietly invokes log scrapes or utilization summaries behind the scenes.
-- The design demonstrates multiple rubric pillars at once—sequential delegation, tool usage, deterministic context management, and built-in evaluation hooks—making it straightforward to explain how the project satisfies competition requirements.
-- Visual evidence: [docs/architecture_overview.md](architecture_overview.md), [../assets/enterprise_it_ops_architecture.png](../assets/enterprise_it_ops_architecture.png).
-- Key rubric concepts covered:
-  - Multi-agent orchestration (sequential delegation + tool usage)
-  - Tool integrations (FunctionTool wrappers for telemetry)
-  - Context handling (deterministic synthetic data, transcripts for observability)
-  - Evaluation hooks ([tests/test_runner.py](../tests/test_runner.py), [notebooks/evaluation/run_evaluation.ipynb](../notebooks/evaluation/run_evaluation.ipynb)).
+Data access flows through FunctionTool adapters that prefer real datasets when available and fall back to deterministic synthetic bursts otherwise. That choice keeps demos reliable while still surfacing meaningful anomalies when live data exists. Every run emits a transcript and passes automated tests, delivering auditable evidence that the workflow behaves consistently.
+
+References: [src/it_ops_observability/agent.py](../src/it_ops_observability/agent.py) and [src/it_ops_observability/tools.py](../src/it_ops_observability/tools.py).
+
+## 5. Architecture & Agent Features
+The system mirrors a command-center. The supervisor owns the user conversation while routing investigative steps to specialist agents that execute tool calls. Leadership can stay in plain English, asking for “top risks” or “overnight incidents,” while the system quietly invokes log scrapes, utilization summaries, and ticket digests behind the scenes.
+
+This design surfaces four rubric pillars simultaneously: sequential delegation, FunctionTool integrations, deterministic context management, and built-in evaluation hooks. The architecture diagram showcases the flow from stakeholder request to tool-backed response, making the compliance story simple to explain.
+
+Visual evidence: [docs/architecture_overview.md](architecture_overview.md) and [../assets/enterprise_it_ops_architecture.png](../assets/enterprise_it_ops_architecture.png). Rubric mapping: multi-agent orchestration, tool integrations, context handling, and evaluation hooks via [tests/test_runner.py](../tests/test_runner.py) and [notebooks/evaluation/run_evaluation.ipynb](../notebooks/evaluation/run_evaluation.ipynb).
 
 ## 6. Data Sources & Synthetic Augmentation
-- We mix publicly available telemetry (CloudFront logs, NAB metrics, support tickets) with deterministic synthetic bursts so every run can surface meaningful incidents even when the raw datasets are missing on a demo machine.
-- The same synthetic helpers power our tests, notebooks, and CLI runs, guaranteeing consistent evidence for judges and stakeholders.
-- References: [docs/data_sources.md](data_sources.md), [src/it_ops_observability/synthetic.py](../src/it_ops_observability/synthetic.py).
+Evidence comes from a blend of public datasets and deterministic synthetic scenarios. CloudFront logs highlight HTTP anomalies, NAB metrics introduce seasonal trends for capacity planning, and ticket corpora capture stakeholder language. When a machine lacks the raw datasets, synthetic bursts keep the briefing vivid so the demo never falls flat.
+
+The synthetic helpers power unit tests, the evaluation notebook, and the CLI runner, guaranteeing that the transcript a judge reads is the same one we generate locally. Data wiring details live in [docs/data_sources.md](data_sources.md), and the generators reside in [src/it_ops_observability/synthetic.py](../src/it_ops_observability/synthetic.py).
 
 ## 7. Tooling & Implementation Details
-- The project ships with both a lightweight demo script and a full ADK InMemoryRunner entry point, making it easy to reproduce the flow locally, in notebooks, or within CI. Environment variables are sourced from `.env`, and every significant run is logged in `history.d` for auditability.
-- References: [scripts/quick_supervisor_demo.py](../scripts/quick_supervisor_demo.py), [scripts/run_adk_supervisor.py](../scripts/run_adk_supervisor.py), [history.d](../history.d), [reports/evaluation/examples/](../reports/evaluation/examples/).
+Two execution paths keep the workflow flexible. `scripts/quick_supervisor_demo.py` is a lightweight smoke test that prints the agent hierarchy and sample tool outputs without touching live LLMs. `scripts/run_adk_supervisor.py` drives the full ADK InMemoryRunner with Gemini, mirroring production behavior. Both respect `.env` for credentials, and every significant run is timestamped in `history.d` so we can prove provenance during judging.
+
+Transcripts and logs land in [reports/evaluation/examples/](../reports/evaluation/examples/), giving us ready-to-attach evidence for the submission. References: [scripts/quick_supervisor_demo.py](../scripts/quick_supervisor_demo.py), [scripts/run_adk_supervisor.py](../scripts/run_adk_supervisor.py), and [history.d](../history.d).
 
 ## 8. Evaluation & Metrics
-- Evaluation focuses on whether the system actually accelerates incident response: smoke tests validate each tool, an end-to-end pytest ensures Gemini produces leadership-ready language, and the evaluation notebook captures a full transcript for auditors.
-- Planned metrics include insight turnaround time, accuracy of SLO breach identification, and the latency to produce a leadership summary—mirroring the success metrics defined in the README.
-- Evidence to cite:
-  - [tests/test_tools.py](../tests/test_tools.py) (tool smoke tests)
-  - [tests/test_runner.py](../tests/test_runner.py) (end-to-end supervisor, live Gemini output)
-  - Notebook: [notebooks/evaluation/run_evaluation.ipynb](../notebooks/evaluation/run_evaluation.ipynb) (repro transcript)
-  - Transcript artifact: [reports/evaluation/examples/2025-11-28_adk_supervisor_verbose_run_v2.txt](../reports/evaluation/examples/2025-11-28_adk_supervisor_verbose_run_v2.txt)
-  - Screenshots: [../assets/screenshots/pytest_pass.png](../assets/screenshots/pytest_pass.png), [../assets/screenshots/evaluation_notebook_run.png](../assets/screenshots/evaluation_notebook_run.png)
+Evaluation centers on whether the system truly accelerates incident response. Tool-level smoke tests confirm each FunctionTool returns deterministic data. An end-to-end pytest drives the supervisor with Gemini to validate that the leadership summary remains well formed. The evaluation notebook shells out to the runner and captures a full transcript—the same output archived in our evidence pack.
+
+Metrics track insight turnaround, SLO breach detection, and briefing latency—the KPIs promised in the README. Fresh measurements (Nov 29) show the supervisor pytest completing in **10.68s** and the verbose CLI run in **10.01s** wall-clock (3.49s CPU). The utilization tool reports **avg CPU 54.83% / peak 78.60%** and **avg memory 62.34% / peak 73.51%** over a 24h window.
+
+Evidence catalog:
+- [tests/test_tools.py](../tests/test_tools.py) – tool smoke tests.
+- [tests/test_runner.py](../tests/test_runner.py) – end-to-end supervisor with Gemini.
+- [notebooks/evaluation/run_evaluation.ipynb](../notebooks/evaluation/run_evaluation.ipynb) – reproducible transcript run.
+- [reports/evaluation/examples/2025-11-28_adk_supervisor_verbose_run_v2.txt](../reports/evaluation/examples/2025-11-28_adk_supervisor_verbose_run_v2.txt) – latest verbose transcript.
+- [../assets/screenshots/pytest_pass.png](../assets/screenshots/pytest_pass.png) and [../assets/screenshots/evaluation_notebook_run.png](../assets/screenshots/evaluation_notebook_run.png) – visual evidence for tests and notebook execution.
+- [../reports/evaluation/examples/metrics_2025-11-29.json](../reports/evaluation/examples/metrics_2025-11-29.json) – runtime/utilization measurements.
 
 ## 9. Deployment & Cost Overview
 - Deployment strategy doc: `docs/deployment_strategy.md`

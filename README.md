@@ -78,6 +78,14 @@ Run `notebooks/evaluation/run_evaluation.ipynb` to reproduce the Gemini-backed s
 
 The notebook automatically preserves any env vars already exported, so it is safe to rerun after rotating keys or toggling models.
 
+### Evidence Snapshot (2025-11-28)
+| Evidence | Status | Artifacts |
+| --- | --- | --- |
+| Pytest regression suite | 4 tests passing in 10.7s real time (warnings from upstream deprecation only) | [tests/test_runner.py](tests/test_runner.py), [pytest screenshot](assets/screenshots/pytest_pass.png) |
+| Evaluation notebook run | Supervisor transcript captured with stdout/stderr; `/usr/bin/time` measured 10.0s wall-clock, 3.5s CPU | [notebook](notebooks/evaluation/run_evaluation.ipynb), [screenshot](assets/screenshots/evaluation_notebook_run.png), [transcript](reports/evaluation/examples/2025-11-28_adk_supervisor_verbose_run_v2.txt) |
+| Architecture diagram | Programmatically generated using Graphviz on 2025-11-28 | [diagram](assets/enterprise_it_ops_architecture.png), [generator script](scripts/generate_architecture_diagram.py) |
+| Success metric instrumentation | Utilization sample: avg CPU 54.83%, peak 78.60%; avg memory 62.34%, peak 73.51 (24h synthetic window) | [evaluation plan](docs/evaluation_plan.md), [submission outline](docs/submission_outline.md), [metrics JSON](reports/evaluation/examples/metrics_2025-11-29.json) |
+
 ## Setup
 1.  Install dependencies: `pip install -r requirements.txt`
 2.  Set up Google Cloud credentials.

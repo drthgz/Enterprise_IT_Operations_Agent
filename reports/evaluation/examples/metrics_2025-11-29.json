@@ -1,0 +1,44 @@
+{
+  "captured_at": "2025-11-29T00:00:00Z",
+  "environment": {
+    "python": "PYTHONPATH=src",
+    "runner": "scripts/run_adk_supervisor.py --verbose"
+  },
+  "runtime_measurements": {
+    "cli_supervisor": {
+      "real_seconds": 10.01,
+      "user_seconds": 3.49,
+      "sys_seconds": 0.09,
+      "command": "/usr/bin/time -f 'real %e user %U sys %S' env PYTHONPATH=src python scripts/run_adk_supervisor.py --verbose"
+    },
+    "pytest_supervisor": {
+      "wall_seconds": 10.68,
+      "test": "tests/test_runner.py::test_supervisor_runner_outputs_summary",
+      "options": "PYTHONPATH=src pytest tests/test_runner.py -q --durations=5"
+    }
+  },
+  "utilization_snapshot": {
+    "hours_evaluated": 24,
+    "average_cpu_pct": 54.83,
+    "peak_cpu_pct": 78.6,
+    "average_memory_pct": 62.34,
+    "peak_memory_pct": 73.51,
+    "recent_samples": [
+      {
+        "timestamp": "2025-11-29T01:03:57.572710",
+        "cpu_pct": 55.75,
+        "memory_pct": 64.37
+      },
+      {
+        "timestamp": "2025-11-29T02:03:57.572710",
+        "cpu_pct": 53.09,
+        "memory_pct": 72.82
+      },
+      {
+        "timestamp": "2025-11-29T03:03:57.572710",
+        "cpu_pct": 64.57,
+        "memory_pct": 70.66
+      }
+    ]
+  }
+}
