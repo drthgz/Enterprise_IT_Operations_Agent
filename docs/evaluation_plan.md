@@ -30,7 +30,7 @@ This plan defines how we will measure the Enterprise IT Operations Agent against
    - Metrics: Manual checklist (clarity, actionability), optional LLM evaluation rubric.
 
 ## Tooling & Automation
-- **Notebook:** `notebooks/evaluation/run_evaluation.ipynb` (to be created) orchestrates the three scenarios and logs metrics.
+- **Notebook:** `notebooks/evaluation/run_evaluation.ipynb` shells out to the production runner, ensuring the supervised prompts and transcript can be regenerated after sourcing `.env`. Execute the notebook after activating the virtualenv; the single code cell will load env vars, set `PYTHONPATH=src`, and call `python scripts/run_adk_supervisor.py --verbose` with the standard prompt sequence. Archive the STDOUT in `reports/evaluation/examples/` for traceability.
 - **CLI Tests:** Future pytest suite under `tests/evaluation/` for automated regression.
 - **ADK Evaluation Hooks:** Leverage `runner.run_debug` traces and artifacts for auditable logs.
 - **Reporting:** Export JSON/Markdown summaries to `reports/evaluation/` for inclusion in README/blog.

@@ -64,6 +64,16 @@ We track rubric alignment in [`docs/rubric_mapping.md`](docs/rubric_mapping.md),
 ## Evaluation Plan
 Success metrics, datasets, scenarios, and reporting expectations are documented in [`docs/evaluation_plan.md`](docs/evaluation_plan.md). The forthcoming evaluation notebook and tests will follow this blueprint.
 
+### Evaluation Notebook
+Run `notebooks/evaluation/run_evaluation.ipynb` to reproduce the Gemini-backed supervisor transcript used in our evidence pack.
+
+1. `source .venv/bin/activate`
+2. Ensure `.env` includes `GOOGLE_API_KEY` and any other required configuration.
+3. Open the notebook and execute the single code cell. It loads env vars, sets `PYTHONPATH=src`, and shells out to `python scripts/run_adk_supervisor.py --verbose ...`.
+4. Capture the printed STDOUT/STDERR into `reports/evaluation/examples/` or your own artifact directory for submission.
+
+The notebook automatically preserves any env vars already exported, so it is safe to rerun after rotating keys or toggling models.
+
 ## Setup
 1.  Install dependencies: `pip install -r requirements.txt`
 2.  Set up Google Cloud credentials.
