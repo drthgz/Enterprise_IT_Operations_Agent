@@ -30,7 +30,7 @@ This guide outlines all written deliverables required for the capstone submissio
   - Troubleshooting section (common errors, IAM permissions, token quotas).
 
 ## 3. Submission Materials
-- **Kaggle Write-up Outline (`docs/submission_outline.md`, to be created):**
+- **Kaggle Write-up Outline (`docs/submission_outline.md`):**
   - Problem & value summary.
   - Architecture & agent features (aligned to rubric concepts).
   - Data sources, evaluation metrics, results.
