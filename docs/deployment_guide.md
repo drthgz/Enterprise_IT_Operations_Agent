@@ -6,7 +6,7 @@ This guide walks through packaging the Streamlit command center into a Cloud Run
 - **Google Cloud project** with billing enabled.
 - **gcloud CLI** authenticated (`gcloud auth login`) and configured with the target project:
   ```bash
-  export PROJECT_ID="my-agentai-project"
+  export PROJECT_ID="gen-lang-client-0325928420"
   export REGION="us-central1"
   gcloud config set project "$PROJECT_ID"
   gcloud config set run/region "$REGION"
