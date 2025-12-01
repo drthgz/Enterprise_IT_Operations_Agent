@@ -1,0 +1,37 @@
+# Files excluded from gcloud builds submit
+# Start from .gitignore but keep adk-python in the build context.
+
+# Byte-compiled / optimized files
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+
+# Virtual environments
+.venv/
+
+# Editor and OS files
+.vscode/
+*.log
+*.DS_Store
+
+# Git metadata
+.git
+.gitignore
+
+# Environment files
+.env
+
+# Notebook caches
+notebooks/
+.ipynb_checkpoints/
+
+# Test caches
+.pytest_cache/
+**/__pycache__/
+
+# Large or local-only assets
+assets/screenshots/
+reports/
+history.d

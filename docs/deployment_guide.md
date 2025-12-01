@@ -36,9 +36,13 @@ gcloud builds submit --tag "${REGION}-docker.pkg.dev/${PROJECT_ID}/it-ops-repo/i
 ```
 
 ## 3. Manage Secrets (Recommended)
-Use Secret Manager to avoid embedding API keys in deployment commands:
+Create the secret (only run once). If the secret already exists, `gcloud` will raise a 409 conflict—skip to the IAM step.
 ```bash
 echo -n "$GOOGLE_API_KEY" | gcloud secrets create it-ops-gemini-key --data-file=- --replication-policy=automatic
+```
+If you already created the secret in the Console or a previous run, verify it exists:
+```bash
+gcloud secrets describe it-ops-gemini-key
 ```
 Grant the Cloud Run runtime service account access (replace with your runtime SA if different):
 ```bash
