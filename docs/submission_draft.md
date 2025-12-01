@@ -3,7 +3,9 @@
 **Subtitle:** Multi-agent Gemini workflow for proactive incident command
 
 **Track:** Enterprise Agents  
-**Word count (approx.):** 1010
+**Word count (approx.):** 1040
+**Demo video:** [YouTube – 2:56](https://youtu.be/CvkVRCEwtHs)  
+**Deployment:** Streamlit command center live on Cloud Run (`it-ops-observability` service)
 
 ---
 
@@ -56,6 +58,7 @@ When a machine lacks the raw datasets, synthetic bursts keep the briefing vivid 
 - **Lightweight Demo Script:** `scripts/quick_supervisor_demo.py` prints the agent tree plus sample tool outputs without making live API calls—ideal for smoke tests.
 - **Reproducible Artifacts:** Architecture diagram and screenshots are generated programmatically (`scripts/generate_architecture_diagram.py` and `assets/screenshots/`). Every substantive run and measurement is logged in `history.d` or `reports/evaluation/examples/` for auditability.
 - **Streamlined UI:** `ui/streamlit_app.py` provides a browser-based command center so stakeholders can run the supervisor, view transcripts, and capture screenshots without touching the CLI.
+- **Cloud Run deployment:** The Streamlit container is built via `gcloud builds submit` and deployed to `it-ops-observability` with secrets sourced from Secret Manager (`docs/deployment_guide.md`).
 
 ---
 
@@ -79,10 +82,10 @@ Together, these assets demonstrate that the agent reliably produces value, and t
 ---
 
 ## Deployment & Cost Considerations
-The deployment roadmap (see `docs/deployment_strategy.md`) targets three surfaces:
+The deployment roadmap (see `docs/deployment_strategy.md`) now spans three surfaces:
 1. **Try ADK Web / Gradio Prototype:** Already functional for supervised demos.
-2. **Streamlit Dashboard (planned):** Provides an authenticated executive view that reuses the existing Python code path without front-end engineering overhead.
-3. **Cloud Run (future):** Containerized Streamlit or ADK service with secure secret management and Cloud Monitoring hooks.
+2. **Streamlit Dashboard:** Desktop-friendly UI for stakeholders; the same code powers the Cloud Run service.
+3. **Cloud Run:** Deployed as `it-ops-observability`, with the Gemini key stored in Secret Manager and configuration in `docs/deployment_guide.md`. The service runs privately to avoid anonymous usage; judges can reproduce it via the guide or request temporary access.
 
 Cost assumptions (documented in `docs/cost_estimate.md`) rely on free-tier GPU/CPU usage for development plus measured Gemini API consumption for the supervisor calls. We track these assumptions to set expectations for enterprise adoption.
 
@@ -93,7 +96,7 @@ Cost assumptions (documented in `docs/cost_estimate.md`) rely on free-tier GPU/C
 - **Transcript automation builds trust:** Capturing stdout/stderr alongside runtime metrics provided immediate evidence for the Kaggle rubric and internal stakeholders.
 - **Tool-first design scales:** By isolating data access in FunctionTool wrappers, we can add new modalities (e.g., SLA policy checks, vector memory lookups) without refactoring prompts.
 
-Planned next steps include: implementing the Streamlit dashboard, wiring ADK memory services for historical incident comparisons, and recording the short video demo that walks through the architecture and live agent run.
+Next steps include wiring ADK memory services for historical incident comparisons, experimenting with automated remediation playbooks, and layering Cloud Monitoring dashboards on top of the Cloud Run deployment.
 
 ---
 
@@ -101,5 +104,5 @@ Planned next steps include: implementing the Streamlit dashboard, wiring ADK mem
 - [x] Narrative drafted within the 1,500-word limit.
 - [x] Architecture diagram embedded (`assets/enterprise_it_ops_architecture.png`).
 - [x] Evidence linked (screenshots, transcript, metrics JSON, pytest timings).
-- [ ] Record <3 minute demo video (scheduled for next working session).
-- [ ] Final proofreading and word-count verification before Kaggle submission.
+- [x] Record <3 minute demo video (link above).
+- [x] Final proofreading and word-count verification before Kaggle submission.

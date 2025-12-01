@@ -2,6 +2,11 @@
 
 **Goal:** Build a Collaborative Multi-Agent System (Level 3) with aspirations for Self-Evolution (Level 4) to analyze IT infrastructure data.
 
+## Quick Links
+- [Demo video (YouTube)](https://youtu.be/CvkVRCEwtHs)
+- Cloud Run deployment: run `gcloud run services describe it-ops-observability --format='value(status.url)'` to retrieve the live URL in your project.
+- [Submission draft](docs/submission_draft.md)
+
 ## Problem Statement & Success Metrics
 **Business Problem.** Enterprise IT operations teams spend hours correlating fragmented telemetry (logs, metrics, incident emails) before they can brief leadership or execute a mitigation plan. The manual triage loop inflates mean time to resolution (MTTR), delays capacity planning, and leaves SLO violations unreported until customers escalate.
 
@@ -22,7 +27,7 @@
     - **Log Analyst:** Detects anomalies and root causes within normalized log windows.
     - **Metric Analyst:** Summarizes utilization trends and forecasts capacity risks.
     - **Operations Planner:** Combines incident communications with telemetry to propose remediation windows and stakeholder messaging.
-3. **Interface Layer:** Notebook experiments → Gradio prototype → Try ADK web → future Streamlit/Cloud Run deployment.
+3. **Interface Layer:** Notebook experiments → Gradio prototype → Try ADK web → Streamlit UI and Cloud Run deployment.
 
 ![Enterprise IT Ops architecture](assets/enterprise_it_ops_architecture.png)
 

@@ -29,14 +29,13 @@ This document outlines the narrative assets needed for the capstone submission a
   4. **Demo (1:20–2:10):** Screen capture of Streamlit run (dashboard refresh + transcript highlights).
   5. **Results & Metrics (2:10–2:40):** Show pytest screenshot, metrics JSON snippets, and runtime stats.
   6. **Closing CTA (2:40–3:00):** Invite viewers to read the write-up and explore the repo.
-- **Assets Needed:**
-  - High-resolution screenshots (already captured in `assets/screenshots/`).
-  - Recorded Streamlit session (to be captured Nov 30).
-  - Voice-over script (draft by Nov 30, finalize Dec 1).
+- **Status:** Recorded at 2:56 and uploaded to YouTube (`https://youtu.be/CvkVRCEwtHs`).
+- **Assets on hand:**
+  - High-resolution screenshots (`assets/screenshots/`).
+  - Final screen recording clips archived in `~/Videos/screenRecord/acceptable/`.
+  - Voice-over script aligned with `docs/demo_script.md`.
 - **Next Actions:**
-  - Capture demo footage using OBS or QuickTime (Nov 30).
-  - Assemble video in preferred editor (Dec 1 AM).
-  - Upload unlisted YouTube link for inclusion in submission (Dec 1 PM).
+  - Share the video link in the Kaggle submission form (Dec 1 PM).
 
 ## 3. Internal Talking Points / FAQ
 - **Objective:** Provide a quick-reference sheet for live demos or Q&A sessions.
@@ -55,14 +54,14 @@ This document outlines the narrative assets needed for the capstone submission a
   - ✅ Streamlit dashboard screenshots (`assets/screenshots/`).
   - ✅ Evaluation transcript (`reports/evaluation/examples/2025-11-28_adk_supervisor_verbose_run_v2.txt`).
   - ✅ Metrics JSON (`reports/evaluation/examples/metrics_2025-11-29.json`).
-  - ◻️ Recorded video (pending capture Nov 30).
+  - ✅ Recorded video (`https://youtu.be/CvkVRCEwtHs`).
   - ◻️ Final LinkedIn copy (pending draft).
 
 ## 5. Publishing Timeline (High Level)
-- Nov 30: Draft LinkedIn post, record Streamlit walkthrough, draft video script.
-- Dec 1 (AM): Edit LinkedIn copy, assemble video, prepare FAQ sheet.
+- Nov 30: Draft LinkedIn post, record Streamlit walkthrough, draft video script. ✅
+- Dec 1 (AM): Edit LinkedIn copy, assemble video, prepare FAQ sheet. ✅
 - Dec 1 (PM): Submit Kaggle write-up with video link and evidence bundle.
 - Dec 2: Publish LinkedIn post and share highlights internally.
 
 ---
-*Last updated: 2025-11-29*
+*Last updated: 2025-12-01*
