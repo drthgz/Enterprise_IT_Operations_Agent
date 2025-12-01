@@ -109,9 +109,27 @@ The notebook automatically preserves any env vars already exported, so it is saf
 
 ## Deployment
 
-Detailed rollout steps for Try ADK web, Streamlit, and Cloud Run live in [`docs/deployment_strategy.md`](docs/deployment_strategy.md). A full deployment guide with commands will be produced during implementation.
+Detailed rollout steps for Try ADK web, Streamlit, and Cloud Run live in [`docs/deployment_strategy.md`](docs/deployment_strategy.md). Command-by-command instructions are captured in [`docs/deployment_guide.md`](docs/deployment_guide.md).
 
 Cost assumptions, free-tier considerations, and a bill of materials table are captured in [`docs/cost_estimate.md`](docs/cost_estimate.md).
+
+### Cloud Run quickstart
+Follow the [Cloud Run deployment guide](docs/deployment_guide.md) for the complete walkthrough. The short version:
+
+```bash
+export PROJECT_ID="my-gcp-project"
+export REGION="us-central1"
+
+gcloud builds submit --tag "gcr.io/${PROJECT_ID}/it-ops-streamlit:latest"
+
+gcloud run deploy it-ops-observability \
+    --image "gcr.io/${PROJECT_ID}/it-ops-streamlit:latest" \
+    --region "$REGION" \
+    --allow-unauthenticated \
+    --set-secrets GOOGLE_API_KEY=it-ops-gemini-key:latest
+```
+
+The service boots a Streamlit dashboard listening on port 8080; configure the Gemini key via Secret Manager or `--set-env-vars GOOGLE_API_KEY=...` for quick tests.
 
 ## Planning Checklist
 - [x] Finalize the detailed problem statement and success metrics (e.g., MTTR reduction, SLA adherence).

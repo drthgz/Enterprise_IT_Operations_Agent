@@ -1,0 +1,33 @@
+# Byte-compiled / optimized files
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+
+# Virtual environments
+.venv/
+
+# Editor and OS files
+.vscode/
+*.DS_Store
+
+# Git metadata
+.git
+.gitignore
+
+# Local environment files
+.env
+
+# Notebooks and cache artifacts
+notebooks/
+.ipynb_checkpoints/
+
+# Test caches
+.pytest_cache/
+**/__pycache__/
+
+# Large or local-only assets
+assets/screenshots/
+reports/
+history.d

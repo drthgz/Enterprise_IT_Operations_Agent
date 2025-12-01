@@ -22,13 +22,13 @@ This guide explains how the Enterprise IT Operations Agent moves from notebooks 
 ### 2. Streamlit Dashboard
 - [x] Scaffold Streamlit app with sidebar controls (incident selection, log filters, time range).
 - [x] Integrate ADK runner calls (async handling or background tasks) to fetch responses.
-- [ ] Display key metrics (charts), summaries, and action recommendations.
-- [ ] Add configuration for API keys (dotenv or secret manager) and note security considerations.
+- [x] Display key metrics (charts), summaries, and action recommendations.
+- [x] Add configuration for API keys (dotenv or secret manager) and note security considerations.
 - [x] Provide local run instructions (`PYTHONPATH=src streamlit run ui/streamlit_app.py`).
 
 ### 3. Containerization & Cloud Run
-- [ ] Write Dockerfile based on official Streamlit/ADK images.
-- [ ] Include startup script to preload models, set environment variables, and run health checks.
+- [x] Write Dockerfile based on official Streamlit/ADK images.
+- [x] Define container entrypoint with Cloud Run-compatible Streamlit settings.
 - [ ] Configure Google Cloud Build or manual `gcloud builds submit` workflow.
 - [ ] Deploy to Cloud Run (`gcloud run deploy`) with min instances, CPU/memory limits, and ingress rules.
 - [ ] Validate authentication (service accounts, IAM), logging, and scaling behavior.
